@@ -1,0 +1,359 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Untitled Page</title>
+<script src="jscookmenu.min.js"></script>
+<link href="Simulation_Station.css" rel="stylesheet">
+<link href="index.css" rel="stylesheet">
+<script src="jquery-1.12.4.min.js"></script>
+<script src="wb.carousel.min.js"></script>
+<script src="./searchindex.js"></script>
+<script>
+var features = 'toolbar=no,menubar=no,location=no,scrollbars=yes,resizable=yes,status=no,left=,top=,width=,height=';
+var searchDatabase = new SearchDatabase();
+var searchResults_length = 0;
+var searchResults = new Object();
+function searchPage(features)
+{
+   var element = document.getElementById('SiteSearch1');
+   if (element.value.length != 0 || element.value != " ")
+   {
+      var value = unescape(element.value);
+      var keywords = value.split(" ");
+      searchResults_length = 0;
+      for (var i=0; i<database_length; i++)
+      {
+         var matches = 0;
+         var words = searchDatabase[i].title + " " + searchDatabase[i].description + " " + searchDatabase[i].keywords;
+         for (var j = 0; j < keywords.length; j++)
+         {
+            var pattern = new RegExp(keywords[j], "i");
+            var result = words.search(pattern);
+            if (result >= 0)
+            {
+               matches++;
+            }
+            else
+            {
+               matches = 0;
+            }
+         }
+         if (matches == keywords.length)
+         {
+            searchResults[searchResults_length++] = searchDatabase[i];
+         }
+      }
+      var wndResults = window.open('about:blank', '', features);
+      setTimeout(function()
+      {
+         var results = '';
+         var html = '<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Search results<\/title><\/head>';
+         html = html + '<body style="background-color:#FFFFFF;margin:0;padding:2px 2px 2px 2px;">';
+         html = html + '<span style="font-family:Arial;font-size:13px;color:#FFFFFF">';
+         for (var n=0; n<searchResults_length; n++)
+         {
+            results = results + '<strong><a style="color:#0000FF" target="_parent" href="'+searchResults[n].url+'">'+searchResults[n].title +'<\/a><\/strong><br><br>\n';
+         }
+         if (searchResults_length == 0)
+         {
+            results = 'No results';
+         }
+         else
+         {
+            html = html + searchResults_length;
+            html = html + ' result(s) found for search term: ';
+            html = html + value;
+            html = html + '<br><br>';
+         }
+         html = html + results;
+         html = html + '<\/span>';
+         html = html + '<\/body><\/html>';
+         wndResults.document.write(html);
+     },100);
+   }
+   return false;
+}
+function searchParseURL()
+{
+   var url = decodeURIComponent(window.location.href);
+   if (url.indexOf('?') > 0)
+   {
+      var terms = '';
+      var params = url.split('?');
+      var values = params[1].split('&');
+      for (var i=0;i<values.length;i++)
+      {
+         var param = values[i].split('=');
+         if (param[0] == 'q')
+         {
+            terms = unescape(param[1]);
+            break;
+         }
+      }
+      if (terms != '')
+      {
+         var element = document.getElementById('SiteSearch1');
+         element.value = terms;
+         searchPage('');
+      }
+   }
+}
+</script>
+<script>
+$(document).ready(function()
+{
+   var Carousel1Opts =
+   {
+      delay: 3000,
+      duration: 500,
+      easing: 'linear',
+      mode: 'forward',
+      direction: '',
+      pagination: true,
+      pagination_img_default: 'images/page_default.png',
+      pagination_img_active: 'images/page_active.png',
+      start: 0
+   };
+   $("#Carousel1").carousel(Carousel1Opts);
+   $("#Carousel1_back a").click(function()
+   {
+      $('#Carousel1').carousel('prev');
+   });
+   $("#Carousel1_next a").click(function()
+   {
+      $('#Carousel1').carousel('next');
+   });
+   searchParseURL();
+   var $autocomplete = $('<ul class="autocomplete"></ul>').hide().insertAfter('#SiteSearch1');
+   var selectedItem = null;
+   var setSelectedItem = function(item)
+   {
+      selectedItem = item;
+      if (selectedItem === null)
+      {
+         $autocomplete.hide();
+         return;
+      }
+      if (selectedItem < 0)
+      {
+         selectedItem = 0;
+      }
+      if (selectedItem >= $autocomplete.find('li').length)
+      {
+         selectedItem = $autocomplete.find('li').length - 1;
+      }
+      $autocomplete.find('li').removeClass('selected').eq(selectedItem).addClass('selected');
+      $autocomplete.css('left', $('#SiteSearch1').position().left);
+      $autocomplete.css('top', $('#SiteSearch1').position().top + $('#SiteSearch1').outerHeight());
+      $autocomplete.show();
+   };
+   var populateSearchField = function()
+   {
+      $('#SiteSearch1').val($autocomplete.find('li').eq(selectedItem).text());
+      setSelectedItem(null);
+   };
+   $('#SiteSearch1').attr('autocomplete', 'off').keyup(function(event)
+   {
+      if (event.keyCode > 40 || event.keyCode == 8)
+      {
+         var data = new Array();
+         var keywordVal = $('#SiteSearch1').val();
+         keywordVal = keywordVal.toLowerCase();
+         for (i=0; i<database_length; i++)
+         {
+            var words = (searchDatabase[i].title + " " + searchDatabase[i].description + " " + searchDatabase[i].keywords).toLowerCase();
+            var array = words.split(" ");
+            data = $.merge(data, array);
+         }
+
+         var unique = new Array();
+         o:for(var i = 0; i < data.length; i++)
+         {
+            for(var j = 0; j < unique.length; j++)
+            {
+               if(unique[j]==data[i]) continue o;
+            }
+            unique[unique.length] = data[i];
+         }
+
+         unique.sort();
+         if (keywordVal.length && unique.length)
+         {
+            $autocomplete.empty();
+            var item = 0;
+            $.each(unique, function(index, term)
+            {
+               term = term.toLowerCase();
+               if (term.indexOf(keywordVal) == 0)
+               {
+                  $('<li></li>').text(term).data('item', item).appendTo($autocomplete).mouseover(function()
+                  {
+                     var item = $(this).data('item');
+                     setSelectedItem(item);
+                  }).click(populateSearchField);
+                  item++;
+               }
+            });
+            setSelectedItem(0);
+         }
+         else
+         {
+            setSelectedItem(null);
+         }
+      }
+      else
+      if (event.keyCode == 38 && selectedItem !== null)
+      {
+         setSelectedItem(selectedItem - 1);
+         event.preventDefault();
+      }
+      else
+      if (event.keyCode == 40 && selectedItem !== null)
+      {
+         setSelectedItem(selectedItem + 1);
+         event.preventDefault();
+      }
+      else
+      if (event.keyCode == 27 && selectedItem !== null)
+      {
+         setSelectedItem(null);
+      }
+   }).keypress(function(event)
+   {
+      if (event.keyCode == 13 && selectedItem !== null)
+      {
+         populateSearchField();
+         event.preventDefault();
+      }
+   }).blur(function(event)
+   {
+      setTimeout(function()
+      {
+         setSelectedItem(null);
+      }, 250);
+   });
+});
+</script>
+</head>
+<body>
+<div id="container">
+<div id="wb_Shape1" style="position:absolute;left:0px;top:0px;width:1001px;height:185px;z-index:4;">
+<img src="images/img0001.png" id="Shape1" alt="" style="width:1001px;height:185px;"></div>
+<div id="wb_MenuBar1" style="position:absolute;left:0px;top:185px;width:882px;height:26px;z-index:1005;">
+<div id="MenuBar1">
+<ul style="display:none;">
+<li><span></span><a href="./index.html" target="_self">HOME</a>
+</li>
+<li><span></span><span>ARTICLES</span>
+<ul>
+<li><span></span><a href="./news_and_opinions.html" target="_self">NEWS&nbsp;AND&nbsp;OPINIONS</a>
+</li>
+</ul>
+</li>
+<li><span></span><span>REVIEWS</span>
+<ul>
+<li><span></span><a href="./games_and_gear.html" target="_self">GAMES,&nbsp;GEAR,&nbsp;LIFESTYLE</a>
+</li>
+</ul>
+</li>
+<li><span></span><a href="./about.html" target="_self">ABOUT</a>
+</li>
+</ul>
+</div>
+<script>
+var cmMenuBar1 =
+{
+   mainFolderLeft: '',
+   mainFolderRight: '',
+   mainItemLeft: '',
+   mainItemRight: '',
+   folderLeft: '',
+   folderRight: '',
+   itemLeft: '',
+   itemRight: '',
+   mainSpacing: 0,
+   subSpacing: 0,
+   delay: 100,
+   offsetHMainAdjust: [0, 0],
+   offsetSubAdjust: [0, 0]
+};
+var cmMenuBar1HSplit = [_cmNoClick, '<td class="MenuBar1MenuSplitLeft"><div></div></td>' +
+                                       '<td class="MenuBar1MenuSplitText"><div></div></td>' +
+                                       '<td class="MenuBar1MenuSplitRight"><div></div></td>'];
+var cmMenuBar1MainVSplit = [_cmNoClick, '<div><table width="15" cellspacing="0"><tr><td class="MenuBar1HorizontalSplit">|</td></tr></table></div>'];
+var cmMenuBar1MainHSplit = [_cmNoClick, '<td colspan="3" class="MenuBar1MainSplitText"><div></div></td>'];
+cmDrawFromText('MenuBar1', 'hbr', cmMenuBar1, 'MenuBar1');
+</script>
+</div>
+<div id="wb_Shape2" style="position:absolute;left:0px;top:211px;width:1001px;height:758px;z-index:6;">
+<img src="images/img0002.png" id="Shape2" alt="" style="width:1001px;height:758px;"></div>
+<div id="wb_Image1" style="position:absolute;left:348px;top:0px;width:303px;height:183px;z-index:7;">
+<img src="images/Sim-Stat Logo.JPG" id="Image1" alt=""></div>
+<div id="wb_Carousel1" style="position:absolute;left:0px;top:345px;width:999px;height:533px;z-index:8;overflow:hidden;">
+<div id="Carousel1" style="position:absolute">
+<div class="frame">
+<div id="Article1" style="overflow:hidden;position:absolute;left:48px;top:117px;width:421px;height:295px;z-index:0;">
+<div class="blogitem">
+   <h1 class="blogsubject"><a href="./acreview.html">Review of Assassin's Creed Odyssey by Leland Barnard</a></h1>
+   <div class="blogthumb"><a href="./acreview.html"><img alt="Review of Assassin&#39;s Creed Odyssey by Leland Barnard" src="images/4 of 5.jpeg"></a></div>
+   <div class="blogdate">Friday, November 23, 2018<br></div>
+   <span style="color:#000000;"><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</span><br>
+   <div class="blogcomments"><a href="mailto:mail@yourwebsite.com?subject=Review%20of%20Assassin's%20Creed%20Odyssey%20by%20Leland%20Barnard">Send Comments</a></div>
+</div>
+<div class="clearfix visible-col1"></div>
+</div>
+<div id="Article3" style="overflow:hidden;position:absolute;left:518px;top:117px;width:429px;height:299px;z-index:1;">
+<div class="blogitem">
+   <span class="blogsubject"><a href="./rdr2review.html">Red Dead Redemption 2 Review by Leland Barnard</a></span>
+   <div class="blogthumb"><a href="./rdr2review.html"><img alt="Red Dead Redemption 2 Review by Leland Barnard" src="images/5 of 5.jpg"></a></div>
+   <div class="blogdate">Friday, November 23, 2018<br></div>
+   <span style="color:#000000;">Rockstar shows us, truly, how the west was won! </span><br>
+   <div class="blogcomments"><a href="mailto:mail@yourwebsite.com?subject=Red%20Dead%20Redemption%202%20Review%20by%20Leland%20Barnard">Send Comments</a></div>
+</div>
+<div class="clearfix visible-col1"></div>
+</div>
+</div>
+<div class="frame">
+<div id="Article2" style="overflow:hidden;position:absolute;left:1049px;top:114px;width:447px;height:304px;z-index:2;">
+<div class="blogitem">
+   <span class="blogsubject"><a href="./forhonoroped.html">The Balancing act of For Honor by Leland Barnard</a></span>
+   <div class="no-thumb"></div>
+   <div class="blogdate">Friday, November 23, 2018<br></div>
+   <span style="color:#FFFFFF;">Ubisoft is on a tight-rope as players are losing faith and patience for them to fix the near 2 year old game. </span><br>
+   <div class="blogcomments"><a href="mailto:mail@yourwebsite.com?subject=The%20Balancing%20act%20of%20For%20Honor%20by%20Leland%20Barnard">Send Comments</a></div>
+</div>
+<div class="clearfix visible-col1"></div>
+</div>
+<div id="Article4" style="overflow:hidden;position:absolute;left:1526px;top:114px;width:429px;height:307px;z-index:3;">
+<div class="blogitem">
+   <span class="blogsubject"><a href="./falloutoped.html">The Fallout of Fallout 76 by Leland Barnard</a></span>
+   <div class="no-thumb"></div>
+   <div class="blogdate">Friday, November 23, 2018<br></div>
+   <span style="color:#000000;">This might be a nuke Bethesda won't survive. </span><br>
+   <div class="blogcomments"><a href="mailto:mail@yourwebsite.com?subject=The%20Fallout%20of%20Fallout%2076%20by%20Leland%20Barnard">Send Comments</a></div>
+</div>
+<div class="clearfix visible-col1"></div>
+</div>
+</div>
+</div>
+<div id="Carousel1_back" style="position:absolute;left:4px;top:46%;width:30px;height:30px;z-index:999"><a style="cursor:pointer"><img alt="Back" style="border-width:0" src="images/carousel_back.png"></a></div>
+<div id="Carousel1_next" style="position:absolute;right:4px;top:46%;width:30px;height:30px;z-index:999"><a style="cursor:pointer"><img alt="Next" style="border-width:0" src="images/carousel_next.png"></a></div>
+</div>
+<div id="wb_TextArt1" style="position:absolute;left:49px;top:252px;width:262px;height:49px;z-index:9;">
+<img src="images/img0003.png" id="TextArt1" alt="LATEST!" title="LATEST!" style="width:262px;height:49px;"></div>
+<div id="wb_Shape3" style="position:absolute;left:0px;top:969px;width:1001px;height:101px;z-index:10;">
+<img src="images/img0004.png" id="Shape3" alt="" style="width:1001px;height:101px;"></div>
+<div id="wb_Text1" style="position:absolute;left:378px;top:1011px;width:244px;height:16px;text-align:center;z-index:11;">
+<span style="color:#FFFFFF;font-family:Arial;font-size:13px;">Simulation Station Copyright 2018</span></div>
+<form name="SiteSearch1_form" id="SiteSearch1_form" accept-charset="UTF-8" onsubmit="return searchPage(features)">
+<input type="text" id="SiteSearch1" style="position:absolute;left:882px;top:185px;width:109px;height:16px;line-height:16px;z-index:12;" name="SiteSearch1" value="" spellcheck="false" placeholder="SITE SEARCH"></form>
+</div>
+</body>
+</html>

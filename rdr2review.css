@@ -1,0 +1,499 @@
+div#container
+{
+   width: 1001px;
+   position: relative;
+   margin: 0 auto 0 auto;
+   text-align: left;
+}
+body
+{
+   background-color: #D3D3D3;
+   color: #000000;
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   line-height: 1.1875;
+   margin: 0;
+   text-align: center;
+}
+#Shape1
+{
+   border-width: 0;
+}
+#MenuBar1
+{
+   background-color: transparent;
+   background-image: url(images/rdr2review_MenuBar1_bkgrnd.png);
+   background-repeat: repeat-x;
+   background-position: left top;
+   border: 1px solid #000000;
+}
+.MenuBar1SubMenu
+{
+   background-color: transparent;
+   background-image: url(images/rdr2review_MenuBar1_bkgrnd0.png);
+   background-repeat: repeat-x;
+   background-position: left top;
+   border: 1px solid #CCCCCC;
+   position:	absolute;
+   visibility: hidden;
+   overflow: visible;
+   z-index: 100;
+}
+.MenuBar1SubMenuTable
+{
+   cursor: default;
+   border: 0;
+   padding: 0;
+}
+.MenuBar1SubMenuTable tr
+{
+   margin: 0;
+   padding: 0;
+}
+.MenuBar1Menu
+{
+   background-color: transparent;
+   margin: 0px 0 0px 0px;
+   padding: 0;
+}
+.MenuBar1MenuOuter
+{
+   background-color: transparent;
+   border: 0px solid #000000;
+}
+.MenuBar1Menu tr
+{
+   margin: 0;
+   padding: 0;
+}
+.MenuBar1MainItem .MenuBar1MainItemLeft,
+.MenuBar1MainItem .MenuBar1MainFolderLeft
+{
+   width: 0px;
+   cursor: pointer;
+   border-width: 0;
+   text-align: center;
+   padding: 3px 0px 3px 0px;
+   font-size: 1px;
+}
+.MenuBar1MainItem .MenuBar1MainItemText, 
+.MenuBar1MainItem .MenuBar1MainItemText a,
+.MenuBar1MainItem .MenuBar1MainFolderText,
+.MenuBar1MainItem .MenuBar1MainFolderText a
+{
+   background-color: transparent;
+   background-image: url(images/rdr2review_MenuBar1_bkgrnd1.png);
+   background-repeat: repeat-x;
+   background-position: left top;
+   color: #FFFFFF;
+   font-size: 16px;
+   font-family: Arial;
+   font-weight: normal;
+   line-height: 18px;
+   text-align: left;
+   text-decoration: none;
+   white-space: nowrap;
+   margin: 0;
+   cursor: pointer;
+   border-bottom: 0px solid #CCCCCC;
+   border-right: 0px solid #CCCCCC;
+   border-top: 0px solid #CCCCCC;
+   border-left: 0px solid #CCCCCC;
+   padding: 3px 5px 3px 5px;
+   vertical-align: middle;
+}
+.MenuBar1MainItem .MenuBar1MainItemRight,
+.MenuBar1MainItem .MenuBar1MainFolderRight
+{
+   width: 0px;
+   cursor: pointer;
+   border-width: 0;
+   padding: 3px 0px 3px 0px;
+   font-size: 1px;
+}
+.MenuBar1MainItemHover .MenuBar1MainItemLeft,
+.MenuBar1MainItemActive .MenuBar1MainItemLeft,
+.MenuBar1MainItemHover .MenuBar1MainFolderLeft,
+.MenuBar1MainItemActive .MenuBar1MainFolderLeft
+{
+   width: 0px;
+   cursor: pointer;
+   border-width: 0;
+   padding: 3px 0px 3px 0px;
+   font-size: 1px;
+}
+.MenuBar1MainItemHover .MenuBar1MainItemText,
+.MenuBar1MainItemActive .MenuBar1MainItemText,
+.MenuBar1MainItemHover .MenuBar1MainItemText a,
+.MenuBar1MainItemActive .MenuBar1MainItemText a,
+.MenuBar1MainItemHover .MenuBar1MainFolderText,
+.MenuBar1MainItemActive .MenuBar1MainFolderText,
+.MenuBar1MainItemHover .MenuBar1MainFolderText a,
+.MenuBar1MainItemActive .MenuBar1MainFolderText a
+{
+   background-color: transparent;
+   background-image: url(images/rdr2review_MenuBar1_bkgrnd4.png);
+   background-repeat: repeat-x;
+   background-position: left top;
+   color: #FFFFFF;
+   font-size: 16px;
+   font-family: Arial;
+   font-weight: normal;
+   line-height: 18px;
+   text-align: left;
+   text-decoration: none;
+   white-space: nowrap;
+   margin: 0;
+   cursor: pointer;
+   border-bottom: 0px solid #CCCCCC;
+   border-right: 0px solid #CCCCCC;
+   border-top: 0px solid #CCCCCC;
+   border-left: 0px solid #CCCCCC;
+   padding: 3px 5px 3px 5px;
+   vertical-align: middle;
+}
+.MenuBar1MainItemHover .MenuBar1MainItemRight,
+.MenuBar1MainItemActive .MenuBar1MainItemRight,
+.MenuBar1MainItemHover .MenuBar1MainFolderRight,
+.MenuBar1MainItemActive .MenuBar1MainFolderRight
+{
+   width: 0px;
+   cursor: pointer;
+   border-width: 0;
+   padding: 3px 0px 3px 0px;
+   font-size: 1px;
+}
+.MenuBar1MenuItem .MenuBar1MenuItemLeft,
+.MenuBar1MenuItem .MenuBar1MenuFolderLeft
+{
+   width: 0px;
+   cursor: pointer;
+   border-width: 0;
+   text-align: center;
+   padding: 3px 0px 3px 0px;
+   font-size: 1px;
+}
+.MenuBar1MenuItem .MenuBar1MenuItemText, 
+.MenuBar1MenuItem .MenuBar1MenuItemText a,
+.MenuBar1MenuItem .MenuBar1MenuFolderText,
+.MenuBar1MenuItem .MenuBar1MenuFolderText a
+{
+   background-color: transparent;
+   background-image: url(images/rdr2review_MenuBar1_bkgrnd11.png);
+   background-repeat: repeat-x;
+   background-position: left top;
+   color: #FFFFFF;
+   font-size: 16px;
+   font-family: Arial;
+   font-weight: normal;
+   line-height: 18px;
+   text-align: left;
+   text-decoration: none;
+   white-space: nowrap;
+   margin: 0;
+   cursor: pointer;
+   border-bottom: 0px solid #CCCCCC;
+   border-top: 0px solid #CCCCCC;
+   border-right: 0px solid #CCCCCC;
+   border-left: 0px solid #CCCCCC;
+   padding: 3px 5px 3px 5px;
+   vertical-align: middle;
+}
+.MenuBar1MenuItem .MenuBar1MenuItemRight,
+.MenuBar1MenuItem .MenuBar1MenuFolderRight
+{
+   width: 0px;
+   cursor: pointer;
+   border-width: 0;
+   padding: 3px 0px 3px 0px;
+   font-size: 1px;
+}
+.MenuBar1MenuItemHover .MenuBar1MenuItemLeft, 
+.MenuBar1MenuItemActive .MenuBar1MenuItemLeft,
+.MenuBar1MenuItemHover .MenuBar1MenuFolderLeft,
+.MenuBar1MenuItemActive .MenuBar1MenuFolderLeft
+{
+   width: 0px;
+   cursor: pointer;
+   border-width: 0;
+   padding: 3px 0px 3px 0px;
+   font-size: 1px;
+}
+.MenuBar1MenuItemHover .MenuBar1MenuItemText,
+.MenuBar1MenuItemActive .MenuBar1MenuItemText,
+.MenuBar1MenuItemHover .MenuBar1MenuItemText a,
+.MenuBar1MenuItemActive .MenuBar1MenuItemText a,
+.MenuBar1MenuItemHover .MenuBar1MenuFolderText,
+.MenuBar1MenuItemActive .MenuBar1MenuFolderText,
+.MenuBar1MenuItemHover .MenuBar1MenuFolderText a,
+.MenuBar1MenuItemActive .MenuBar1MenuFolderText a
+{
+   background-color: transparent;
+   background-image: url(images/rdr2review_MenuBar1_bkgrnd14.png);
+   background-repeat: repeat-x;
+   background-position: left top;
+   color: #FFFFFF;
+   font-size: 16px;
+   font-family: Arial;
+   font-weight: normal;
+   line-height: 18px;
+   text-align: left;
+   text-decoration: none;
+   white-space: nowrap;
+   margin: 0;
+   cursor: pointer;
+   border-bottom: 0px solid #CCCCCC;
+   border-top: 0px solid #CCCCCC;
+   border-right: 0px solid #CCCCCC;
+   border-left: 0px solid #CCCCCC;
+   padding: 3px 5px 3px 5px;
+   vertical-align: middle;
+}
+.MenuBar1MenuItemHover .MenuBar1MenuItemRight,
+.MenuBar1MenuItemActive .MenuBar1MenuItemRight,
+.MenuBar1MenuItemHover .MenuBar1MenuFolderRight,
+.MenuBar1MenuItemActive .MenuBar1MenuFolderRight
+{
+   width: 0px;
+   cursor: pointer;
+   border-width: 0;
+   padding: 3px 0px 3px 0px;
+   font-size: 1px;
+}
+.MenuBar1SubMenu td,
+.MenuBar1Menu td,
+.MenuBar1Menu tr
+{
+   vertical-align: middle;
+}
+.MenuBar1MenuSplitText div
+{
+   height: 1px;
+   padding: 0;
+   background-color: #333333;
+   overflow: hidden;
+}
+.MenuBar1MenuItem .MenuBar1MenuSplitLeft
+{
+   height: 7px;
+   padding: 0px 0px 0px 0px;
+}
+.MenuBar1MenuItem .MenuBar1MenuSplitText
+{
+   background-color: transparent;
+   background-image: url(images/rdr2review_MenuBar1_bkgrnd11.png);
+   background-repeat: repeat-x;
+   background-position: left top;
+   height: 7px;
+   padding: 0px 6px 0px 6px;
+}
+.MenuBar1MenuItem .MenuBar1MenuSplitRight
+{
+   height: 7px;
+   padding: 0px 0px 0px 0px;
+}
+.MenuBar1MainSplitText div
+{
+   background-color: #333333;
+   height: 1px;
+   padding: 0;
+   overflow: hidden;
+}
+.MenuBar1MainItem .MenuBar1MainSplitLeft 
+{
+   height: 7px;
+   padding: 0px 0px 0px 0px;
+}
+.MenuBar1MainItem .MenuBar1MainSplitText
+{
+   background-color: transparent;
+   background-image: url(images/rdr2review_MenuBar1_bkgrnd1.png);
+   background-repeat: repeat-x;
+   background-position: left top;
+   height: 7px;
+   padding: 0px 0px 0px 0px;
+}
+.MenuBar1MainItem .MenuBar1MainSplitRight
+{
+   height: 7px;
+   padding: 0px 0px 0px 0px;
+}
+.MenuBar1MainItem
+{
+   vertical-align: middle;
+}
+.MenuBar1HorizontalSplit
+{
+   border-right: 0 solid #8080FF;
+   border-left: 0 solid #8080FF;
+   width: 15px;
+   background-color: transparent;
+   background-image: url(images/rdr2review_MenuBar1_bkgrnd1.png);
+   background-repeat: repeat-x;
+   background-position: left top;
+   padding: 3px 0px 3px 0px;
+   vertical-align: middle;
+   text-align: center;
+   text-decoration: none;
+   color: #333333;
+   font-size: 16px;
+   font-family: Arial;
+   font-style: normal;
+}
+.MenuBar1MainItem, .MenuBar1MainItemHover, .MenuBar1MainItemActive,
+.MenuBar1MenuItem, .MenuBar1MenuItemHover, .MenuBar1MenuItemActive
+{
+   white-space: nowrap;
+}
+.MenuBar1SpacerDiv
+{
+   background: transparent;
+   margin: 0;
+   padding: 0;
+   border: 0;
+   font-size: 1px;
+}
+#Shape2
+{
+   border-width: 0;
+}
+#Shape3
+{
+   border-width: 0;
+}
+#wb_Text1 
+{
+   background-color: transparent;
+   background-image: none;
+   border: 0px #000000 solid;
+   padding: 0;
+   margin: 0;
+   text-align: center;
+}
+#wb_Text1 div
+{
+   text-align: center;
+}
+#SiteSearch1
+{
+   border: 1px #000000 solid;
+   background-color: transparent;
+   background-image: none;
+   color :#FFFFFF;
+   font-family: Arial;
+   font-weight: bold;
+   font-size: 13px;
+   padding: 4px 4px 4px 4px;
+   text-align: left;
+   vertical-align: middle;
+}
+.autocomplete
+{
+   position: absolute;
+   background: #000000;
+   border: 1px solid #000000;
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   list-style-type: none;
+   z-index: 999;
+   padding: 0;
+   width: 119px;
+   margin: 0;
+}
+.autocomplete li
+{
+   padding: 0;
+   margin: 0;
+}
+.autocomplete li.selected
+{
+   background: #008;
+   color: #FFFFFF;
+}
+#Article1
+{
+   background-color: transparent;
+   border-width: 0;
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   line-height: 1.2;
+   text-align: left;
+}
+#Article1 .blogitem
+{
+   margin-bottom: 6px;
+   padding: 0px;
+}
+#Article1 .blogdate
+{
+   font-family: Arial;
+   font-weight: bold;
+   font-size: 13px;
+   color: #000000;
+}
+#Article1 .blogsubject, #Article1 .blogsubject a:link, #Article1 .blogsubject a:visited, #Article1 .blogsubject a:hover
+{
+   font-family: Arial;
+   font-weight: bold;
+   font-size: 19px;
+   color: #000000;
+   text-decoration: none;
+}
+#Article1 .blogcomments, #Article1 .blogcomments a:link, #Article1 .blogcomments a:visited, #Article1 .blogcomments a:hover
+{
+   font-family: Arial;
+   font-weight: normal;
+   font-size: 13px;
+   color: #000000;
+   text-decoration: underline;
+}
+#Article1 .blogcomments
+{
+   text-decoration: none;
+}
+#Article1 .no-thumb
+{
+   display: none;
+}
+#Article1 .blogsubject
+{
+   display: block;
+   margin: 0;
+   padding: 0;
+}
+#Article1 .blogthumb
+{
+   margin: 0 0 5px 0;
+   float: right;
+   padding: 0 5px 0 0;
+}
+#Article1 .blogthumb img
+{
+   border-width: 0px;
+   width: 120px;
+   height: auto;
+}
+#Article1 .blogdate, #Article1 .blogcomments
+{
+   display: none;
+}
+#Article1
+{
+   background-color: #FFFFFF;
+   background-image: none;
+   border: 0px transparent solid;
+   font-family: Arial;
+   font-weight: normal;
+}
+#Image2
+{
+   border: 1px #000000 solid;
+   padding: 0px 0px 0px 0px;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+}
